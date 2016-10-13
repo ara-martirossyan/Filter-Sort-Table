@@ -136,12 +136,18 @@ public class TableView {
 
 	public static User[] generateData() {
 		ArrayList<User> users = new ArrayList<User>();
-		users.add(new User("Ara", "Martirosyan", "rue 45", 31, true));
-		users.add(new User("Satenik", "Kherounts", "rue 44", 30, false));
-		users.add(new User("Tufta", "Akhmakhyan", "rue 43", 24, false));
-		users.add(new User("Volod", "Urod", "rue 41", 69, true));
-		users.add(new User("Volodia", "Urodia", "rue 5", 68, true));
-		users.add(new User("Araik", "Martirosyanchishe", "rue 45", 31, true));
+		users.add(new User("Ara", "Martirosyan", "rue 18", 31, true));
+		users.add(new User("Raymond", "Perrée", "rue 43", 30, true));
+		users.add(new User("Bernadette", "Clavette", "rue 15", 24, false));
+		users.add(new User("Adrienne", "Verllow", "rue 8", 19, false));
+		users.add(new User("Louis", "Deselle", "rue 19", 68, true));
+		users.add(new User("Nicole", "Rossiter", "rue 33", 46, false));
+		users.add(new User("Thomas", "Ferrande", "rue 52", 26, true));
+		users.add(new User("David", "Nodreau", "rue 46", 52, true));
+		users.add(new User("Alice", "Gaspard", "rue 22", 34, false));
+		users.add(new User("Roger", "Francis", "rue 11", 47, true));
+		
+	
 
 		return users.toArray(new User[users.size()]);
 	}
