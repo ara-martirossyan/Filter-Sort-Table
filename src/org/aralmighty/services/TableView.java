@@ -65,12 +65,29 @@ public class TableView {
 		String headerColumnsHtml = (this.isNumeration() ? "<th>#</th>": "");
 		String filterColumnsHtml = (this.isNumeration() ? "<th></th>": "");
 		boolean hasFilter = false;
-		for (String[] column : this.columns) {
-			headerColumnsHtml += "<th>" + column[0] + "</th>";
-			// Check filtering options.
-			if (column.length >= 3 && column[2].startsWith("filterable")) {
-				hasFilter = true;
-				String filter = column[2];
+		for (String[] column : this.columns) {      
+			// Check sorting options.
+			boolean hasSort = false;
+			for (int i = 2; i < column.length; i++) {
+				if (column[i].startsWith("sortable")) {
+					hasSort = true;
+					break;
+				}
+			}
+			String sort = (hasSort ? "<div class=\"sortable glyphicon glyphicon-sort pull-right\"></div>" : "");
+			headerColumnsHtml += "<th>" + column[0] + sort + "</th>";
+			
+		    // Check filtering options.
+		    String filter = "";
+		    for (int i = 2; i < column.length; i++) {
+		       if(column[i].startsWith("filterable")){
+		           hasFilter = true;
+		           filter = column[i];
+		           break;
+		       }
+		    }
+			if (hasFilter) {
+				// Checking if filter has a select input
 				if (filter.length() > "filterable".length() && 
 					filter.substring("filterable".length(), "filterable".length()+1).equals("(") && 
 					filter.substring(filter.length()-1).equals(")")
@@ -82,6 +99,7 @@ public class TableView {
 					}
 					filterColumnsHtml += "</select></th>";
 				}
+				// Checking if filter has a text input
 				else {
 					filterColumnsHtml += "<th>" + "<input type=\"text\" class=\"form-control\">" + "</th>";
 				}				
@@ -90,10 +108,9 @@ public class TableView {
 				filterColumnsHtml += "<th></th>";
 			}
 			
-		}
+		}		
 		
-		
-
+		// Construct table rows.
 		String tableRows = "";		
 		for (int i = 0; i < data.length; i++) {
 			Object obj = data[i];
@@ -145,9 +162,7 @@ public class TableView {
 		users.add(new User("Thomas", "Ferrande", "rue 52", 26, true));
 		users.add(new User("David", "Nodreau", "rue 46", 52, true));
 		users.add(new User("Alice", "Gaspard", "rue 22", 34, false));
-		users.add(new User("Roger", "Francis", "rue 11", 47, true));
-		
-	
+		users.add(new User("Roger", "Francis", "rue 11", 47, true));	
 
 		return users.toArray(new User[users.size()]);
 	}

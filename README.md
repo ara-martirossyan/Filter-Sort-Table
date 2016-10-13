@@ -2,11 +2,11 @@
 
     <% User[] users = TableView.generateData();	%>
   	<%= new TableView(users, new String[][] {
-  		{"First Name<div class=\"sortable glyphicon glyphicon-sort pull-right\"></div>", "firstName", "filterable"},
+  		{"First Name", "firstName", "filterable", "sortable"},
 	    {"Last Name", "lastName"},
 	    {"Home", "addressLable", "filterable"},
 	    {"Gender", "genderLable", "filterable(male,female)"},
-	    {"Age<div class=\"sortable glyphicon glyphicon-sort pull-right\"></div>", "age", "filterable"}
+	    {"Age", "age", "sortable", "filterable"}
 	  }).addTableTagAttr("id=\"sortable\" class=\"table table-bordered table-striped table-hover table-condensed\"").
 		   addTableHeaderTrAttr("class=\"info\"").
 		   setNumeration(true).
