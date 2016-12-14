@@ -180,3 +180,68 @@ $("thead th div.sortable").click({p1: "glyphicon-sort", p2: "glyphicon-sort-by-a
 	// numeration control
 	numerate(table);	
 });
+
+//Action buttons
+//==============//
+//DELETE//
+var modalDelete = "<div class=\"modal fade\" id=\"confirmDelete\" role=\"dialog\" aria-labelledby=\"confirmDeleteLabel\" aria-hidden=\"true\">" +
+			    "<div class=\"modal-dialog\">" +
+				    "<div class=\"modal-content\">" +
+				        "<div class=\"modal-header alert alert-warning\">" +
+				            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>" +
+				            "<h4 class=\"modal-title\">DELETE PERMANENTLY</h4>" +
+				        "</div>" +
+				        "<div class=\"modal-body\">" +
+				            "<p>You are about to delete the data permanently from the database.</p>" +
+				            "<p>If you want to proceed press Delete, otherwise press Cancel.</p>" +
+				        "</div>" +
+				        "<div class=\"modal-footer\">" +
+				            "<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Cancel</button>" +
+				            "<div class=\"btn btn-danger\" id=\"confirm\">Delete</div>" +
+				        "</div>" +
+				    "</div>" +
+				"</div>" +
+			"</div>";
+
+function postDeleteMessage(id){
+	return "<div class=\"alert alert-success alert-dismissible\">"
+	+ "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>"
+	+ "The data record having id=" + id + " has been successfully deleted from the database."
+	+ "</div>";
+}
+
+function ajaxDelete(url, postDeleteMessage) {
+	$.ajax({
+		url : url,
+		type : 'POST',
+		success : function(response) {
+			$(postDeleteMessage).insertBefore($("table.table"));
+			$("tbody").html($("tbody", response).html());
+		}
+	});
+}
+
+$(document).on("click", "tbody>tr>td>a>span.glyphicon-trash", function( event ) {
+	event.preventDefault();
+	$(modalDelete).modal("show");
+});
+
+$(document).on("shown.bs.modal", "#confirmDelete", function (event) {
+	  var aLink = event.delegateTarget.activeElement;
+	  var url = aLink.href;
+	  var id = aLink.id;
+	  var button = $(this).find("#confirm")
+	  $(button).attr('url', url);
+	  $(button).attr('rid', id);
+});
+
+$(document).on("click", "#confirm", function( event ) {
+	var url = $(this).attr('url');
+	var id = $(this).attr('rid');
+	$(this).parents("#confirmDelete").modal('hide');
+	ajaxDelete(url, postDeleteMessage(id));
+});
+
+$(document).on('hidden.bs.modal', "#confirmDelete", function (e){
+	$(this).remove();
+});
