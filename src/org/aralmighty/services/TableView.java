@@ -86,7 +86,7 @@ public class TableView {
 		           break;
 		       }
 		    }
-			if (hasFilter) {
+			if (!filter.equals("")) {
 				// Checking if filter has a select input
 				if (filter.length() > "filterable".length() && 
 					filter.substring("filterable".length(), "filterable".length()+1).equals("(") && 
