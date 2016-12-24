@@ -1,8 +1,4 @@
-package org.aralmighty.services;
-
-import java.util.ArrayList;
-
-import org.aralmighty.dto.User;
+package com.spring.mvc.helpers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -118,17 +114,31 @@ public class TableView {
 			for (String[] column : this.columns) {
 				tableRows += "<td>";
 				String columnAction = column[1];
-				String methodName = "get" + columnAction.substring(0, 1).toUpperCase() + columnAction.substring(1);
+				String[] args = null;
+				Class<?>[] cArgs = null;
+				String methodName = null;
+				if (columnAction.indexOf("(") > 0 && columnAction.substring(columnAction.length()-1).equals(")")) {
+					args = columnAction.substring(columnAction.indexOf("(")+1, columnAction.indexOf(")")).split(",");
+					cArgs = new Class[args.length];
+					for (int k = 0; k < cArgs.length; k++) {
+						cArgs[k] = String.class;
+					}
+					methodName = columnAction.substring(0, columnAction.indexOf("("));
+					methodName = "get" + methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
+				}
+				else {
+					methodName = "get" + columnAction.substring(0, 1).toUpperCase() + columnAction.substring(1);
+				}
 				Method method = null;
 				try {
-					method = obj.getClass().getMethod(methodName);
+					method = obj.getClass().getMethod(methodName, cArgs);
 				} catch (NoSuchMethodException | SecurityException e) {
 					e.printStackTrace();
 				}
 				try {
 					// We assume that the get method of the object attribute
 					// returns a string
-					tableRows += method.invoke(obj);
+					tableRows += method.invoke(obj, (Object[])args);
 				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				} catch (IllegalArgumentException e) {
@@ -152,19 +162,19 @@ public class TableView {
 	}
 
 	public static User[] generateData() {
-		ArrayList<User> users = new ArrayList<User>();
-		users.add(new User("Ara", "Martirosyan", "rue 18", 31, true));
-		users.add(new User("Raymond", "Perrée", "rue 43", 30, true));
-		users.add(new User("Bernadette", "Clavette", "rue 15", 24, false));
-		users.add(new User("Adrienne", "Verllow", "rue 8", 19, false));
-		users.add(new User("Louis", "Deselle", "rue 19", 68, true));
-		users.add(new User("Nicole", "Rossiter", "rue 33", 46, false));
-		users.add(new User("Thomas", "Ferrande", "rue 52", 26, true));
-		users.add(new User("David", "Nodreau", "rue 46", 52, true));
-		users.add(new User("Alice", "Gaspard", "rue 22", 34, false));
-		users.add(new User("Roger", "Francis", "rue 11", 47, true));	
+               ArrayList<User> users = new ArrayList<User>();
+               users.add(new User("Ara", "Martirosyan", "rue 18", 31, true));
+               users.add(new User("Raymond", "Perrée", "rue 43", 30, true));
+               users.add(new User("Bernadette", "Clavette", "rue 15", 24, false));
+               users.add(new User("Adrienne", "Verllow", "rue 8", 19, false));
+               users.add(new User("Louis", "Deselle", "rue 19", 68, true));
+               users.add(new User("Nicole", "Rossiter", "rue 33", 46, false));
+               users.add(new User("Thomas", "Ferrande", "rue 52", 26, true));
+               users.add(new User("David", "Nodreau", "rue 46", 52, true));
+               users.add(new User("Alice", "Gaspard", "rue 22", 34, false));
+               users.add(new User("Roger", "Francis", "rue 11", 47, true));
 
-		return users.toArray(new User[users.size()]);
-	}
+               return users.toArray(new User[users.size()]);
+        }
 
 }
