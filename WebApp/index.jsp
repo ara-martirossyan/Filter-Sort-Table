@@ -13,7 +13,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-    <% User[] users = TableView.generateData();	%>
+    <% User[] users = (User[])TableView.generateData();	%>
 	<%= new TableView(users, new String[][] {
 		   {"First Name", "firstName", "filterable", "sortable"},
 	       {"Last Name", "lastName"},
