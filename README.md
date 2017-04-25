@@ -1,6 +1,6 @@
 # Filter-Sort-Table
 
-        <% User[] users = TableView.generateData(); %>
+     <% User[] users = TableView.generateData(); %>
   	<%= new TableView(users, new String[][] {
   	    	{"First Name", "firstName", "filterable", "sortable"},
 	    	{"Last Name", "lastName"},
