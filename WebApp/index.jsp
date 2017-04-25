@@ -13,28 +13,28 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-    <% User[] users = (User[])TableView.generateData();	%>
+        <% User[] users = (User[])TableView.generateData(); %>
 	<%= new TableView(users, new String[][] {
-		   {"First Name", "firstName", "filterable", "sortable"},
-	       {"Last Name", "lastName"},
-	       {"Home", "addressLable", "filterable"},
-	       {"Gender", "genderLable", "filterable(male,female)"},
-	       {"Age", "age",  "sortable", "filterable"}
-	   }).addTableTagAttr("id=\"sortable\" class=\"table table-bordered table-striped table-hover table-condensed\"").
-		  addTableHeaderTrAttr("class=\"info\"").
-		  setNumeration(true).
-		  post()
+	        {"First Name", "firstName", "filterable", "sortable"},
+	        {"Last Name", "lastName"},
+	        {"Home", "addressLable", "filterable"},
+	        {"Gender", "genderLable", "filterable(male,female)"},
+	        {"Age", "age",  "sortable", "filterable"}
+	     }).addTableTagAttr("id=\"sortable\" class=\"table table-bordered table-striped table-hover table-condensed\"").
+	        addTableHeaderTrAttr("class=\"info\"").
+	        setNumeration(true).
+	        post()
 	%>
 	<%= new TableView(users, new String[][] {
-		   {"First Name", "firstName"},
-	       {"Last Name", "lastName"},
-	       {"Home", "addressLable"},
-	       {"Gender", "genderLable"},
-	       {"Age", "age"}
-	   }).addTableTagAttr("class=\"table table-bordered table-striped table-hover table-condensed\"").
-		  addTableHeaderTrAttr("class=\"info\"").
-		  setNumeration(false).
-		  post()
+	        {"First Name", "firstName"},
+	        {"Last Name", "lastName"},
+	        {"Home", "addressLable"},
+	        {"Gender", "genderLable"},
+	        {"Age", "age"}
+	     }).addTableTagAttr("class=\"table table-bordered table-striped table-hover table-condensed\"").
+		addTableHeaderTrAttr("class=\"info\"").
+		setNumeration(false).
+		post()
 	%>
     </div>
   </div>
