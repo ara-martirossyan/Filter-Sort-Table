@@ -1,4 +1,4 @@
-package org.aralmighty.services;
+package org.aralmighty.helpers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
